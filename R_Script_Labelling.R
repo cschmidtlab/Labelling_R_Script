@@ -80,7 +80,7 @@ mod_sites = mod_sites[mod_sites$Score > 80,]
 # Localization pobability filter can be adjusted
 mod_sites = mod_sites[mod_sites$Localization.prob > 0.75,]
 
-#### 2.4 Change structure of modification table ####
+#### 2.5 Change structure of modification table ####
 # Selection of protein, position, amino acid, modification and intensity of Experiment 1 to Experiment 5 of all replicates
 mod_sites = select(mod_sites, Protein, Position, Amino.acid, Modification, Intensity.ADH_DEPC_0_0_mM_R1:Intensity.ADH_DEPC_5_0_mM_R3)
 mod_sites_new_structure <- melt(mod_sites, id=(c("Protein","Position","Amino.acid","Modification")))
@@ -122,7 +122,7 @@ mod_sites_ratio$Concentration[mod_sites_ratio$variable %in% c("Intensity.Experim
 mod_sites_ratio$Replicate = mod_sites_melt$variable
 mod_sites_ratio$Replicate = gsub("Intensity.Experiment_\d{1}_R", "",mod_sites_melt$Replicate)
 
-#### 4.1 Add column with Frac_ASA info (obtained from GETAREA) and save file ####
+#### 4.3 Add column with Frac_ASA info (obtained from GETAREA) and save file ####
 Frac_asa$Position=Frac_asa$Residue
 mod_sites_ratio_final=merge(mod_sites_ratio,Frac_asa, by = "Position", all.x= TRUE)
 
